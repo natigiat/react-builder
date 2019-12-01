@@ -1,0 +1,240 @@
+extends layout
+
+block content
+  .listLeft
+
+
+     ul.ant-menu.ant-menu-sub.ant-menu-inline(id='Components', role='menu')
+      .ant-menu-item-group-layout
+        ul.ant-menu-item-group-list
+          li.ant-menu-item
+              span Raw
+          li.ant-menu-item
+              span Col
+
+      li.ant-menu-item-group
+        .ant-menu-item-group-title(title='General') General
+        ul.ant-menu-item-group-list
+          li.ant-menu-item.ant-menu-item-selected
+              span Button
+          li.ant-menu-item
+              span Icon
+    
+      li.ant-menu-item-group
+        .ant-menu-item-group-title(title='Navigation') Navigation
+        ul.ant-menu-item-group-list
+          li.ant-menu-item
+              span Breadcrumb
+          li.ant-menu-item
+              span Dropdown
+          li.ant-menu-item
+              span Menu
+          li.ant-menu-item
+              span Pagination
+          li.ant-menu-item
+              span PageHeader
+          li.ant-menu-item
+              span Steps
+      li.ant-menu-item-group
+        .ant-menu-item-group-title(title='Data Entry') Data Entry
+        ul.ant-menu-item-group-list
+          li.ant-menu-item
+              span AutoComplete
+          li.ant-menu-item
+              span Checkbox
+          li.ant-menu-item
+              span Cascader
+          li.ant-menu-item
+              span DatePicker
+          li.ant-menu-item
+              span Form
+          li.ant-menu-item
+              span InputNumber
+          li.ant-menu-item
+              span Input
+          li.ant-menu-item
+              span Mentions
+          li.ant-menu-item
+              span Rate
+          li.ant-menu-item
+              span Radio
+          li.ant-menu-item
+              span Switch
+          li.ant-menu-item
+              span Slider
+          li.ant-menu-item
+              span Select
+          li.ant-menu-item
+              span TreeSelect
+          li.ant-menu-item
+              span Transfer
+          li.ant-menu-item
+              span TimePicker
+          li.ant-menu-item
+              span Upload
+      li.ant-menu-item-group
+        .ant-menu-item-group-title(title='Data Display') Data Display
+        ul.ant-menu-item-group-list
+          li.ant-menu-item
+              span Avatar
+          li.ant-menu-item
+              span Badge
+          li.ant-menu-item
+              span Comment
+          li.ant-menu-item
+              span Collapse
+          li.ant-menu-item
+              span Carousel
+          li.ant-menu-item
+              span Card
+          li.ant-menu-item
+              span Calendar
+          li.ant-menu-item
+              span Description List
+          li.ant-menu-item
+              span Empty
+          li.ant-menu-item
+              span List
+          li.ant-menu-item
+              span Popover
+          li.ant-menu-item
+              span Statistic
+          li.ant-menu-item
+              span Tree
+          li.ant-menu-item
+              span Tooltip
+          li.ant-menu-item
+              span Timeline
+          li.ant-menu-item
+              span Tag
+          li.ant-menu-item
+              span Tabs
+          li.ant-menu-item
+              span Table
+      li.ant-menu-item-group
+        .ant-menu-item-group-title(title='Feedback') Feedback
+        ul.ant-menu-item-group-list
+          li.ant-menu-item
+              span Alert
+          li.ant-menu-item
+              span Drawer
+          li.ant-menu-item
+              span Modal
+          li.ant-menu-item
+              span Message
+          li.ant-menu-item
+              span Notification
+          li.ant-menu-item
+              span Progress
+          li.ant-menu-item
+              span Popconfirm
+          li.ant-menu-item
+              span Result
+          li.ant-menu-item
+              span Spin
+          li.ant-menu-item
+              span Skeleton
+      li.ant-menu-item-group
+        .ant-menu-item-group-title(title='Other') Other
+        ul.ant-menu-item-group-list
+          li.ant-menu-item
+              span Anchor
+          li.ant-menu-item
+              span BackTop
+          li.ant-menu-item
+              span ConfigProvider
+          li.ant-menu-item
+              span Divider
+      li.ant-menu-item-group
+        .ant-menu-item-group-title(title='Deprecated') Deprecated
+        ul.ant-menu-item-group-list
+          li.ant-menu-item
+              span LocaleProvider (Deprecated)
+          li.ant-menu-item
+              span Mention (Deprecated)
+  
+  #code
+  
+  #prev
+      iframe#framw
+
+  
+  
+  script. 
+       $( document ).ready(function() {
+        let antdUrl =`https://ant.design/components/`;
+        var myCodeMirror = CodeMirror(document.getElementById('code'), {
+          value: ``,
+          mode:  "javascript",
+          theme: "ambiance",
+           lineNumbers: true,
+        });
+
+        $( ".ant-menu-item" ).each(function( index ) {
+           $( this ).append('<div class="info">i</div>')
+        });
+
+        $("body").on("click", ".info", function(){
+           var item = $(this).closest("li").find("span").text().trim().toLowerCase();
+           console.log(item)
+            $("#framw").attr("src" , antdUrl+item)
+           
+        })
+
+
+        $(".ant-menu-item").on("click", function(){
+          var item = $(this).find("span").text().trim().toLowerCase();
+          let code = elementCode(item)
+           
+          insertTextAtCursor(myCodeMirror, code)
+          console.log(item);
+        });
+
+
+        function insertTextAtCursor(editor, text) {
+            var doc = editor.getDoc();
+            var cursor = doc.getCursor();
+            doc.replaceRange(text, cursor);
+        }
+
+
+
+
+        function elementCode(element){
+          let elementCode;
+          
+          switch(element) {
+            case "raw":
+              elementCode = `<Row>
+                <Col span={12}>col-12</Col>
+                <Col span={12}>col-12</Col>
+              </Row>`;
+              break;
+
+            case "button":
+              elementCode = `<Button type="primary">Primary</Button>`;
+              break;
+
+            case "input":
+              elementCode = `<Input placeholder="Basic usage" />`;
+              break;
+            
+
+            case "icon":
+              elementCode = `<Icon type="step-forward" />`;
+              break;
+            
+
+           
+
+              
+       
+          }
+
+          return elementCode
+
+        }
+
+
+
+       });
